@@ -1,0 +1,21 @@
+# This Python file uses the following encoding: utf-8
+import optparse
+import cherrypy
+
+def main():
+
+  parser.add_option("-p", "--port", type="int", dest="port", help="port on which  to run the server", default="8080")
+  (options, args) = parser.parse_args()
+
+  cherrypy.config.update({"server.socket_host": '127.0.0.1', # IPv6 binding shenanigans
+                          "tools.encode.on": True,
+                          "tools.encode.encoding": "utf-8",
+                          "server.environment": "production",
+                          "server.socket_queue_size": 5,
+                          "server.log_to_screen": True,
+                          "server.socket_timeout": 500,
+                          "server.socket_port": options.port})
+
+  cherrypy.quickstart(Tag())
+
+if __name__=='__main__':main()
